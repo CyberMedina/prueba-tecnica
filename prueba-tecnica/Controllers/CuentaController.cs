@@ -54,5 +54,19 @@ namespace prueba_tecnica.Controllers
 
             return Ok("Retiro realizado con éxito!");
         }
+
+        // 4. Resumen de transacciones y cálculo de saldo final
+        [HttpGet("listarTransacciones")]
+        public ActionResult ListarTransacciones(string numeroCuenta)
+        {
+            var cuenta = _cuentaService.ObtenerCuenta(numeroCuenta);
+            if(cuenta== null)
+            {
+                return NotFound("Cuenta no encontrada");
+            }
+
+
+            return Ok(cuenta);
+        }
     }
 }
