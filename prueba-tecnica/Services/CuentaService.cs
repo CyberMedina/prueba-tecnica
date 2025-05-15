@@ -48,5 +48,20 @@ namespace prueba_tecnica.Services
             return $"{prefijo}-{ano}-{posicion}";
 
         }
+
+        public decimal ConsultarSaldo(string numeroCuenta, out string error)
+        {
+            var cuenta = _cuentas.FirstOrDefault(c => c.NumeroCuenta == numeroCuenta);
+            if (cuenta == null)
+            {
+                error = "El numero de cuenta no existe";
+                return 0;
+            }
+
+            error = string.Empty;
+            return cuenta.Saldo;
+
+
+        }
     }
 }
