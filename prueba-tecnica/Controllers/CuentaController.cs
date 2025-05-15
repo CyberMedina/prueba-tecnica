@@ -14,6 +14,7 @@ namespace prueba_tecnica.Controllers
     {
         private readonly CuentaService _cuentaService = new();
 
+        // 1. Crear cuenta
         [HttpPost("crearCuenta")]
         public ActionResult CrearCuenta([FromBody] decimal saldoInicial)
         {
@@ -21,6 +22,16 @@ namespace prueba_tecnica.Controllers
             if (cuenta == null) return BadRequest(error);
 
             return Ok(cuenta);
+        }
+
+        // 2. Consultar saldo
+        [HttpGet("consultarSaldo")]
+        public ActionResult ConsultarSaldo(string numeroCuenta)
+        {
+            var saldo = _cuentaService.ConsultarSaldo(numeroCuenta, out string error);
+            if (!string.IsNullOrEmpty(error)) return NotFound(error);
+
+            return Ok(saldo);
         }
     }
 }
