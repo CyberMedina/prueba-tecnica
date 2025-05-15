@@ -49,9 +49,16 @@ namespace prueba_tecnica.Services
 
         }
 
+
+        public CuentaBancaria? ObtenerCuenta(string numeroCuenta)
+        {
+            return _cuentas.FirstOrDefault(c => c.NumeroCuenta == numeroCuenta);
+        }
+
+
         public decimal ConsultarSaldo(string numeroCuenta, out string error)
         {
-            var cuenta = _cuentas.FirstOrDefault(c => c.NumeroCuenta == numeroCuenta);
+            var cuenta = ObtenerCuenta(numeroCuenta);
             if (cuenta == null)
             {
                 error = "El numero de cuenta no existe";
