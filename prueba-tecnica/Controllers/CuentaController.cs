@@ -42,7 +42,17 @@ namespace prueba_tecnica.Controllers
             var exito = _cuentaService.Depositar(numeroCuenta, monto, out string error);
             if (!exito) return BadRequest(error);
 
-            return Ok("Deposito realizado con éxito");
+            return Ok("Deposito realizado con éxito!");
+        }
+
+        // 3.2. Realizar retiros
+        [HttpPost("retirar")]
+        public ActionResult Retirar(string numeroCuenta, [FromBody] decimal monto)
+        {
+            var exito = _cuentaService.Retirar(numeroCuenta, monto, out string error);
+            if (!exito) return BadRequest(error);
+
+            return Ok("Retiro realizado con éxito!");
         }
     }
 }
