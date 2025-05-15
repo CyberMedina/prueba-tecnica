@@ -6,8 +6,11 @@ using Xunit;
 namespace prueba_tecnica.Tests
 {
     public class CuentaServicesTests
+
+
     {
         private readonly CuentaService _service = new();
+
 
         [Fact]
         public void CrearCuenta_ConSaldoInicial_DeberiCrearCuentaCorrectamente()
@@ -41,5 +44,18 @@ namespace prueba_tecnica.Tests
             Assert.Equal(800, cuenta.Saldo);
             Assert.Equal(string.Empty, error);
         }
+
+        [Fact]
+        public void Retirar_SinFondosSuficientes_DeberiaFallar()
+        {
+            var cuenta = _service.CrearCuenta(100, out _);
+            var resultado = _service.Retirar(cuenta!.NumeroCuenta, 200, out string error);
+
+            Assert.False(resultado);
+            Assert.Equal("No tiene el saldo disponible para poder realizar este retiro", error);
+            Assert.Equal(100, cuenta.Saldo);
+        }
+
+       
     }
 }

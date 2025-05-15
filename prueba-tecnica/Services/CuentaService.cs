@@ -6,6 +6,12 @@ namespace prueba_tecnica.Services
     {
         private static readonly List<CuentaBancaria> _cuentas = [];
 
+        public static void LimpiarDatos()
+        {
+            _cuentas.Clear();
+            _contadorCuentas = 0;
+        }
+
         private static int _contadorCuentas = 0;
 
 
