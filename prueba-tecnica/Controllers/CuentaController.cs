@@ -33,5 +33,16 @@ namespace prueba_tecnica.Controllers
 
             return Ok(saldo);
         }
+
+        // 3.1 Realizar depositos
+        [HttpPost("depositar")]
+        public ActionResult Depositar(string numeroCuenta, [FromBody] decimal monto)
+        {
+
+            var exito = _cuentaService.Depositar(numeroCuenta, monto, out string error);
+            if (!exito) return BadRequest(error);
+
+            return Ok("Deposito realizado con éxito");
+        }
     }
 }
