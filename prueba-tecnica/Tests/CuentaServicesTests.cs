@@ -30,5 +30,16 @@ namespace prueba_tecnica.Tests
             Assert.Equal(800, cuenta.Saldo);
             Assert.Equal(string.Empty, error);
         }
+
+        [Fact]
+        public void Retirar_ConFondosSuficientes_DeberiaDisminuirSaldo()
+        {
+            var cuenta = _service.CrearCuenta(1000, out _);
+            var resultado = _service.Retirar(cuenta!.NumeroCuenta, 200, out string error);
+
+            Assert.True(resultado);
+            Assert.Equal(800, cuenta.Saldo);
+            Assert.Equal(string.Empty, error);
+        }
     }
 }
