@@ -70,5 +70,38 @@ namespace prueba_tecnica.Services
 
 
         }
+
+        public bool Depositar(string numeroCuenta, decimal monto, out string error)
+        {
+            var cuenta = ObtenerCuenta(numeroCuenta);
+
+            if(cuenta == null)
+            {
+                error = "Cuenta no encontrada";
+                return false;
+            }
+
+            if(monto < 0)
+            {
+                error = "El monto debe de ser mayor a 0";
+                return false;
+            }
+
+            cuenta.Saldo += monto;
+
+            cuenta.Transacciones.Add(new Transaccion
+            {
+                Tipo = "Deposito",
+                Monto = monto,
+                SaldoDespues = cuenta.Saldo,
+
+            });
+
+            error = string.Empty;
+            return true;
+
+        }
+
+
     }
 }
