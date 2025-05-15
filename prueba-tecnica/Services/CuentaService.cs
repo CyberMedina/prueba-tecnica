@@ -11,7 +11,7 @@ namespace prueba_tecnica.Services
 
         public CuentaBancaria? CrearCuenta(decimal saldoInicial, out string error)
         {
-            if(saldoInicial < 0)
+            if (saldoInicial < 0)
             {
                 error = "El saldo inicial no puede ser menor a 0";
                 return null;
@@ -22,6 +22,13 @@ namespace prueba_tecnica.Services
                 NumeroCuenta = CrearNumeroCuenta(),
                 Saldo = saldoInicial
             };
+
+            cuenta.Transacciones.Add(new Transaccion
+            {
+                Tipo = "Apertura de cuenta",
+                Monto = saldoInicial,
+                SaldoDespues = saldoInicial
+            });
 
             _cuentas.Add(cuenta);
             error = string.Empty;
@@ -38,7 +45,7 @@ namespace prueba_tecnica.Services
             var ano = DateTime.UtcNow.Year;
             var posicion = _contadorCuentas;
 
-            return $"{prefijo} - {ano} - {posicion}";
+            return $"{prefijo}-{ano}-{posicion}";
 
         }
     }
