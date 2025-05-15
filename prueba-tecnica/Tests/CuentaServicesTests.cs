@@ -15,7 +15,19 @@ namespace prueba_tecnica.Tests
             var cuenta = _service.CrearCuenta(1000, out string error);
 
             Assert.NotNull(cuenta);
-            Assert.Equal(1000, cuenta.Saldo);
+            Assert.Equal(1000, cuenta!.Saldo);
+            Assert.Equal(string.Empty, error);
+        }
+
+        [Fact]
+        public void Depositar_EnCuentaExistente_DeberiaIncrementarSaldo()
+        {
+            var cuenta = _service.CrearCuenta(500, out _);
+            Assert.NotNull(cuenta); 
+            var resultado = _service.Depositar(cuenta!.NumeroCuenta, 300, out string error);
+
+            Assert.True(resultado);
+            Assert.Equal(800, cuenta.Saldo);
             Assert.Equal(string.Empty, error);
         }
     }
